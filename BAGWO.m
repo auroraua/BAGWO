@@ -1,5 +1,5 @@
 %____________________________________________________________________________________
-% BAGWO: A hybrid optimization algorithm of Beetle Antennae Search algorithm and Grey Wolf Optimizer
+% BAGWO: A Hybrid Algorithm of Beetle Antennae Search and Grey Wolf Optimizer for Global Optimization
 % (BAGWO)source codes version 1.0
 %
 % Release Date: 2024/05/16
