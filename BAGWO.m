@@ -2,14 +2,14 @@
 % BAGWO: A Hybrid Algorithm of Beetle Antennae Search and Grey Wolf Optimizer for Global Optimization
 % (BAGWO)source codes version 1.0
 %
-% Release Date: 2024/05/16
+% Update Date: 2024/11/10
 %
 % Developed in MATLAB R2023b
 %
 % Author and programmer: Fan Zhang
 % Main Contributors: Fan Zhang, Chuankai Liu, Shuiting Ding
 %
-% E-Mail: auroraus2020@outlook.com, fan.zhang@buaa.edu.cn
+% E-Mail: auroraus2020@outlook.com, fan.zhangfan@buaa.edu.cn
 % Project homepage: https://github.com/auroraua/BAGWO
 %____________________________________________________________________________________
 
@@ -48,7 +48,7 @@ Fitness = ones(1,N).*1e50;  % Initialize Population fitness
 bestX = X(1,:);             % The decision variables vector corresponding to the historical best search agent 
 bestFitness = fobj(bestX);  % The fitness corresponding to the historical best search agent 
 
-a = 1/Max_iteration^0.7;     % anterior antennae length coefficient, Equation(12)
+a = 1/Max_iteration^1;     % anterior antennae length coefficient, Equation(12)
 Ns = ceil(Max_iteration*((0.5)^(0.6342*Max_iteration^0.1775)));  %The number of iterations corresponding to the change in the decay rate of the beetles antennae length, Equation(14)
 decayRate = (a/c)^(1/Ns);      % Decay rate of beetles length of antennae, Equation(10)
 
@@ -114,10 +114,10 @@ for iterNum = 1:Max_iteration
     % 
     if iterNum == Ns
         b = 10^(-1*(0.7928*Max_iteration^0.5031));    % Hind antennae length coefficient, Equation(13)
-        decayRate = (b/c)^(1/(Max_iteration-Ns));     % Decay rate of beetles length of antennae, Equation(10)
+        decayRate = (b/c)^(1/(Max_iteration-Ns));     % Decay rate of beetles length of antennae
     end
 
     charisma = 1/(1+100*((1-finalCharisma)/100)^(iterNum/Max_iteration));  % Update the charisma, Equation(7)
-    c = c*decayRate;      % Update the decay rate of beetles length of antennae, Equation(9)
+    c = c*decayRate;      % Update the decay rate of beetles length of antennae, Equation(10)
 end
 end
