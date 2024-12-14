@@ -1,4 +1,4 @@
 # BAGWO
 BAGWO source code and other resources
 
-Notice： In order to protect the results of knowledge, when the article is received, the source code will be disclosed.
+Notice： If you use the algorithms or source code in this repository, please indicate the source.
