@@ -1,13 +1,13 @@
 %____________________________________________________________________________________
 % BAGWO: A Hybrid Algorithm of Beetle Antennae Search and Grey Wolf Optimizer for Global Optimization
-% (BAGWO)source codes version 1.0
+% (BAGWO)source codes version 1.1
 %
-% Update Date: 2024/11/10
+% Update Date: 2025/01/02
 %
-% Developed in MATLAB R2023b
+% Developed in MATLAB R2022b
 %
 % Author and programmer: Fan Zhang
-% Main Contributors: Fan Zhang, Chuankai Liu, Shuiting Ding
+% Main Contributors: Fan Zhang, Chuankai Liu, Peng Liu, Shuiting Ding
 %
 % E-Mail: auroraus2020@outlook.com, fan.zhangfan@buaa.edu.cn
 % Project homepage: https://github.com/auroraua/BAGWO
@@ -34,13 +34,16 @@ convergenceCurve = [];
 xbd = ub-lb;  % The difference vector between upper limit and lower limit of decision variables
 
 % BAGWO Initial parameter setting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 c = 1.0;               % Initial antennae length of beetles
-localStep = 10;        % Number of local exploitation steps
+localStep = 10;        % The frequency of local exploitation
 finalCharisma = 0.99;  % The final charisma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 charisma = 0;   % Initial charisma
 
-X= lhsdesign(N, dim).*xbd+lb;  % Latin hypercube sampling of initial decision variables of population
+% Latin hypercube sampling of initial decision variables of the population, or alternatively, random uniform sampling may be selected.
+X= lhsdesign(N, dim).*xbd+lb;  
 
 tempX = ones(N,dim);     % Used to update and record the search agent's individual best case in local exploitation
 
@@ -48,19 +51,19 @@ Fitness = ones(1,N).*1e50;  % Initialize Population fitness
 bestX = X(1,:);             % The decision variables vector corresponding to the historical best search agent 
 bestFitness = fobj(bestX);  % The fitness corresponding to the historical best search agent 
 
-a = 1/Max_iteration^1;     % anterior antennae length coefficient, Equation(12)
+a = 1/Max_iteration^1;     % anterior antennae length coefficient, Equation(14)
 Ns = ceil(Max_iteration*((0.5)^(0.6342*Max_iteration^0.1775)));  %The number of iterations corresponding to the change in the decay rate of the beetles antennae length, Equation(14)
-decayRate = (a/c)^(1/Ns);      % Decay rate of beetles length of antennae, Equation(10)
+decayRate = (a/c)^(1/Ns);      % Decay rate of beetles length of antennae, contained within Equation(12)
 
 % Iterative solution of optimization problem
 for iterNum = 1:Max_iteration 
     for k = 1:N
         % Local exploitation process for each search agent
-        for m = 1:ceil(localStep*cos(pi/2*iterNum/Max_iteration))  % Equation(15)
+        for m = 1:ceil(localStep*cos(pi/2*iterNum/Max_iteration))  % Equation(17)
             dir = unifrnd(-1,1,[1,dim]);    % The orientation of the beetle's head is random
-            dir = dir./norm(dir);           % Normalized, Equation(16)
+            dir = dir./norm(dir);           % Normalized, Equation(18)
             arm = dir.*c.*xbd;              % Antenna detection distance
-            xr = X(k,:) + arm;              % Update the position of the right antennae, Equation(17)
+            xr = X(k,:) + arm;              % Update the position of the right antennae, Equation(19)
             xr = max(xr,lb);xr=min(xr,ub);  % Ensure that the position of the right antennae corresponding to the right antennae are within the range of the upper limit and lower limit
             xl = X(k,:)-arm;
             xl = max(xl,lb);xl=min(xl,ub);  
@@ -77,16 +80,16 @@ for iterNum = 1:Max_iteration
                 else
                     tempX(k,:)=xl;
                 end
-                X(k,:) = X(k,:)-2.0.*arm.*sign(fr-fl);        % Update the current search agent's location, Equation(18)
+                X(k,:) = X(k,:)-2.0.*arm.*sign(fr-fl);        % Update the current search agent's location, Equation(20)
                 X(k,:) = max(X(k,:),lb);X(k,:)=min(X(k,:),ub);
             else
-                X(k,:) = X(k,:)-0.5.*arm.*sign(fr-fl);        % Update the current search agent's location, Equation(19)
+                X(k,:) = X(k,:)-0.5.*arm.*sign(fr-fl);        % Update the current search agent's location, Equation(21)
                 X(k,:) = max(X(k,:),lb);X(k,:)=min(X(k,:),ub);
             end
         end
     end
 
-    % Update historical best search proxies, Equation(6)
+    % Update historical best search agent, Equation(6), (7) and (8)
     indexOfSort = [];  %Record the index of search agents in the population, sorted by fitness
     fitnessSort = sort(Fitness);
     for index =1:N
@@ -108,16 +111,16 @@ for iterNum = 1:Max_iteration
 
     % Summon search agents in the population
     for pop = 1:N
-        X(pop,:) = X(pop,:)+charisma.*(bestX-X(pop,:));    % Equation(20)
+        X(pop,:) = X(pop,:)+charisma.*(bestX-X(pop,:));    % Equation(22)
     end
 
     % 
     if iterNum == Ns
-        b = 10^(-1*(0.7928*Max_iteration^0.5031));    % Hind antennae length coefficient, Equation(13)
-        decayRate = (b/c)^(1/(Max_iteration-Ns));     % Decay rate of beetles length of antennae
+        b = 10^(-1*(0.7928*Max_iteration^0.5031));    % Hind antennae length coefficient, Equation(15)
+        decayRate = (b/c)^(1/(Max_iteration-Ns));     % Decay rate of beetles length of antennae, contained within Equation(12)
     end
 
-    charisma = 1/(1+100*((1-finalCharisma)/100)^(iterNum/Max_iteration));  % Update the charisma, Equation(7)
-    c = c*decayRate;      % Update the decay rate of beetles length of antennae, Equation(10)
+    charisma = 1/(1+100*((1-finalCharisma)/100)^(iterNum/Max_iteration));  % Update the charisma, Equation(9)
+    c = c*decayRate;      % Update the decay rate of beetles length of antennae, Equation(12)
 end
 end
