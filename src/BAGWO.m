@@ -10,7 +10,7 @@
 % Main Contributors: Fan Zhang, Chuankai Liu, Peng Liu, Shuiting Ding
 %
 % E-Mail: fan.zhang@buaa.edu.cn, liuchuankai@buaa.edu.cn, auroraus2020@outlook.com
-% Project homepage: https://github.com/auroraua/BAGWO
+% Project homepage: https://github.com/auroraua/BAGWO  &  https://gitee.com/auroraus/bagwo
 % Paper: https://doi.org/10.1038/s41598-025-98816-0
 %____________________________________________________________________________________
 
