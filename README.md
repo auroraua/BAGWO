@@ -1,4 +1,6 @@
 # BAGWO
-BAGWO source code and other resources
+This study proposes BAGWO, a novel hybrid optimization algorithm that integrates the Beetle Antennae Search algorithm (BAS) and the Grey Wolf Optimizer (GWO) to leverage their complementary strengths while enhancing their original strategies. BAGWO introduces three key improvements: the charisma concept and its update strategy based on the sigmoid function, the local exploitation frequency update strategy driven by the cosine function, and the switching strategy for the antennae length decay rate. These improvements are rigorously validated through ablation experiments. Comprehensive evaluations on 24 benchmark functions from CEC 2005 and CEC 2017, along with eight real-world engineering problems, demonstrate that BAGWO achieves stable convergence and superior optimization performance. Extensive testing and quantitative statistical analyses confirm that BAGWO significantly outperforms competing algorithms in terms of solution accuracy and stability, highlighting its strong competitiveness and potential for practical applications in global optimization.
 
 Notice： If you use the algorithms or source code in this repository, please indicate the source.
+
+Paper: [https://www.nature.com/articles/s41598-025-98816-0](https://www.nature.com/articles/s41598-025-98816-0)   /   [https://doi.org/10.1038/s41598-025-98816-0](https://doi.org/10.1038/s41598-025-98816-0)
