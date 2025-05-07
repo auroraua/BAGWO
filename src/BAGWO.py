@@ -4,8 +4,6 @@
 #
 # Update Date: 2025/05/07
 #
-# Developed in MATLAB R2022b
-#
 # Author and programmer: Fan Zhang
 # Main Contributors: Fan Zhang, Chuankai Liu, Peng Liu, Shuiting Ding
 #
