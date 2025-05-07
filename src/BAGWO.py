@@ -14,6 +14,9 @@
 # Paper: https://doi.org/10.1038/s41598-025-98816-0
 # ____________________________________________________________________________________
 
+import numpy as np
+from scipy.stats import qmc
+
 # BAGWO
 """
 Input Parameter
